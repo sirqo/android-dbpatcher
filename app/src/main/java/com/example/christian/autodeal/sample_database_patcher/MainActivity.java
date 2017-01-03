@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_update_patch, btn_list_files;
     private SQLiteDatabasePatcher sqLiteDatabasePatcher;
     private BroadcastReceiver SQLiteDatabasePatcherReciever;
+    private String intentFilter = "test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sqLiteDatabasePatcher = new SQLiteDatabasePatcher(getApplicationContext(),
                 new MySQLiteOpenHelper(getApplicationContext()).getWritableDatabase(),
                 getString(R.string.api_url),
-                SQLiteDatabasePatcherReciever);
+                SQLiteDatabasePatcherReciever,
+                intentFilter);
 
         btn_update_patch = (Button) findViewById(R.id.btn_update_patch);
         btn_list_files = (Button) findViewById(R.id.btn_list_files);
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         registerReceiver(SQLiteDatabasePatcherReciever,
-                new IntentFilter("test"));
+                new IntentFilter(intentFilter));
     }
 
     @Override

@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 25
@@ -29,4 +31,88 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.volley:volley:1.0.0'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+group = 'sirqo'
+version = '0.0.1'
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'android-dbpatcher'
+            description 'A library for updating SQLite database in android.'
+            url 'https://sirqo.bintray.com/Android-DBPatcher'
+            inceptionYear '2016'
+
+            packaging 'aar'
+            groupId 'sirqo'
+            artifactId 'sqlite.database.patcher'
+            version '0.0.1'
+
+            licenses {
+                license {
+                    name "The Apache Software License, Version 2.0"
+                    url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    distribution "repo"
+                }
+            }
+
+            developers {
+                developer {
+                    id  'crcallelero'
+                    name 'Christian'
+                    email 'crcallelero@gmail.com'
+                }
+            }
+            scm {
+                connection 'https://github.com/sirqo/android-dbpatcher.git' // YOUR GIT REPO
+                developerConnection 'https://github.com/sirqo/android-dbpatcher.git' // YOUR GIT REPO
+                url 'https://github.com/sirqo/android-dbpatcher' // YOUR SITE
+
+            }
+        }
+    }
+}
+
+Properties bintrayProperties = new Properties()
+bintrayProperties.load(project.rootProject.file('bintray.properties').newDataInputStream())
+
+bintray {
+    user = bintrayProperties.getProperty('user')
+    key = bintrayProperties.get('key')
+    configurations = ['archives']
+    pkg {
+        repo = 'Android-DBPatcher'
+        name = 'android-dbpatcher'
+        userOrg = 'sirqo'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/sirqo/android-dbpatcher'
+        publish = true
+        version {
+            name = '0.0.1'
+            desc = 'Android SQLite Database Patcher'
+            released = new Date()
+            vcsTag = 'v0.0.1'
+        }
+    }
 }

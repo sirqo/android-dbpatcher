@@ -35,15 +35,16 @@ public class SQLiteDatabasePatcher {
     private Context context;
     private String path;
     private SQLiteDatabase sqLiteDatabase;
-    private String api_url;
+    private String api_url, intentFilter;
     private BroadcastReceiver broadcastReceiver;
 
 
-    public SQLiteDatabasePatcher(Context context, SQLiteDatabase sqLiteDatabase, String api_url, BroadcastReceiver broadcastReceiver){
+    public SQLiteDatabasePatcher(Context context, SQLiteDatabase sqLiteDatabase, String api_url, BroadcastReceiver broadcastReceiver, String intentFiler){
         this.context = context;
         this.sqLiteDatabase = sqLiteDatabase;
         this.api_url = api_url;
         this.broadcastReceiver = broadcastReceiver;
+        this.intentFilter = intentFiler;
 
         //path to local directory of sqlite patches
         path = context.getFilesDir().getPath() + context.getString(R.string.repository_path);
@@ -148,7 +149,7 @@ public class SQLiteDatabasePatcher {
                     }
                     else{
                         Intent intent = new Intent();
-                        intent.setAction("test");
+                        intent.setAction(intentFilter);
                         context.sendBroadcast(intent);
                         Log.d(TAG, "requestPatchFromAPI(): Broadcast Start");
                     }

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Sample_database_patcher</string>
     <!--required strings-->
-    <string name="api_url">http://api.autodeal.dev/app_dev.php/v1/update_version</string>
 
 </resources>

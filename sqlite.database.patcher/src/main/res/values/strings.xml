@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">SQLite.Database.Patcher</string>
     <string name="app_preference_name">SQLite.Database.Patcher.Preference</string>
-    <string name="repository_path">/sqlite_patches/</string>
+    <string name="repository_path">sqlite_patches/</string>
 </resources>

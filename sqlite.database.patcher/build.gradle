@@ -28,9 +28,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.volley:volley:1.0.0'
 }
 
 task sourcesJar(type: Jar) {
@@ -102,7 +100,7 @@ bintray {
     key = bintrayProperties.get('key')
     configurations = ['archives']
     pkg {
-        repo = 'Android-DBPatcher'
+        repo = 'Sirqo'
         name = 'android-dbpatcher'
         userOrg = 'sirqo'
         licenses = ['Apache-2.0']

@@ -18,26 +18,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String TAG = MainActivity.class.getSimpleName();
     private Button btn_update_patch, btn_list_files;
     private SQLiteDatabasePatcher sqLiteDatabasePatcher;
-    private BroadcastReceiver SQLiteDatabasePatcherReciever;
-    private String intentFilter = "test";
+    private int increment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SQLiteDatabasePatcherReciever = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Toast.makeText(getApplicationContext(), "Update Successful!", Toast.LENGTH_LONG).show();
-            }
-        };
-
         sqLiteDatabasePatcher = new SQLiteDatabasePatcher(getApplicationContext(),
                 new MySQLiteOpenHelper(getApplicationContext()).getWritableDatabase(),
-                getString(R.string.api_url),
-                SQLiteDatabasePatcherReciever,
-                intentFilter);
+                getFilesDir().getPath() + "/config/" //make sure your path start and end with this "/"
+                );
 
         btn_update_patch = (Button) findViewById(R.id.btn_update_patch);
         btn_list_files = (Button) findViewById(R.id.btn_list_files);
@@ -47,24 +38,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(SQLiteDatabasePatcherReciever,
-                new IntentFilter(intentFilter));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(SQLiteDatabasePatcherReciever);
-    }
-
-    @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.btn_update_patch:
                 //writes file
-                sqLiteDatabasePatcher.requestPatchFromAPI();
+                sqLiteDatabasePatcher.applyPatch("insert into users(user,age) values("+ increment +","+increment+")",
+                        "test_" + increment + ".txt");
+                increment++;
                 break;
             case R.id.btn_list_files:
                 sqLiteDatabasePatcher.getCurrentDatabasePatches(); // returns null if empty

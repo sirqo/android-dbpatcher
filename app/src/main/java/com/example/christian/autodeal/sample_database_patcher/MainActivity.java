@@ -42,12 +42,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(view.getId()){
             case R.id.btn_update_patch:
                 //writes file
+                //check every iteration if there will be an error
                 sqLiteDatabasePatcher.applyPatch("insert into users(user,age) values("+ increment +","+increment+")",
                         "test_" + increment + ".txt");
                 increment++;
                 break;
             case R.id.btn_list_files:
-                sqLiteDatabasePatcher.getCurrentDatabasePatches(); // returns null if empty
+
                 break;
         }
     }

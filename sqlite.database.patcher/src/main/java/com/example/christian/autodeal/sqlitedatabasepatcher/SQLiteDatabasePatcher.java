@@ -15,21 +15,10 @@ import java.io.File;
 
 public class SQLiteDatabasePatcher {
     private final String TAG = SQLiteDatabasePatcher.class.getSimpleName();
-    private Context context;
-    private String parent_directory;
     private SQLiteDatabase sqLiteDatabase;
 
-    public SQLiteDatabasePatcher(Context context, SQLiteDatabase sqLiteDatabase, String parent_directory){
-        this.context = context;
+    public SQLiteDatabasePatcher(SQLiteDatabase sqLiteDatabase){
         this.sqLiteDatabase = sqLiteDatabase;
-
-        //path to local directory of sqlite patches
-        this.parent_directory = parent_directory + context.getString(R.string.repository_path);
-        Log.d(TAG, "parent_directory= " + this.parent_directory);
-        File directory = new File(this.parent_directory);
-        if (!directory.exists())
-            directory.mkdirs();
-
     }
 
     /*

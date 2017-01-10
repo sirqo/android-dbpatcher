@@ -25,9 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sqLiteDatabasePatcher = new SQLiteDatabasePatcher(getApplicationContext(),
-                new MySQLiteOpenHelper(getApplicationContext()).getWritableDatabase(),
-                getFilesDir().getPath() + "/config/" //make sure your path start and end with this "/"
+        sqLiteDatabasePatcher = new SQLiteDatabasePatcher(
+                new MySQLiteOpenHelper(getApplicationContext()).getWritableDatabase()
                 );
 
         btn_update_patch = (Button) findViewById(R.id.btn_update_patch);

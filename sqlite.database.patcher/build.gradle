@@ -52,7 +52,7 @@ artifacts {
 }
 
 group = 'sirqo'
-version = '0.0.3' //verion of the library
+version = '0.0.4' //verion of the library
 
 install {
     repositories.mavenInstaller {
@@ -65,7 +65,7 @@ install {
             packaging 'aar'
             groupId 'sirqo'
             artifactId 'sqlite.database.patcher'
-            version '0.0.3' //verion of the library
+            version '0.0.4' //verion of the library
 
             licenses {
                 license {
@@ -107,10 +107,10 @@ bintray {
         vcsUrl = 'https://github.com/sirqo/android-dbpatcher'
         publish = true
         version {
-            name = '0.0.3' //verion of the library
+            name = '0.0.4' //verion of the library
             desc = 'Android SQLite Database Patcher'
             released = new Date()
-            vcsTag = 'v0.0.3' //verion of the library
+            vcsTag = 'v0.0.4' //verion of the library
         }
     }
 }

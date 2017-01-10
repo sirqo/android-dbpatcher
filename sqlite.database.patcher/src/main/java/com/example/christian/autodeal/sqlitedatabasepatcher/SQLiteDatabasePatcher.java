@@ -1,11 +1,9 @@
 package com.example.christian.autodeal.sqlitedatabasepatcher;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
-import java.io.File;
 
 
 
